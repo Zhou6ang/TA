@@ -1,0 +1,108 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>zg.toolkit</groupId>
+  <artifactId>pm-data-simulator</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>pm-data-simulator</name>
+  <url>http://maven.apache.org</url>
+  
+  <parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>1.4.0.RELEASE</version>
+  </parent>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+	  <groupId>com.google.guava</groupId>
+	  <artifactId>guava</artifactId>
+	  <version>22.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.nsn.oss.o2ml2koa</groupId>
+		<artifactId>o2mlconversion-api</artifactId>
+		<version>18.0.6159</version>
+	</dependency>
+	<dependency>
+         <groupId>com.jcraft</groupId>
+         <artifactId>jsch</artifactId>
+         <version>0.1.54</version>
+     </dependency>
+     <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.8.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.8.2</version>
+    </dependency>
+    
+  </dependencies>
+  
+ <build>
+    <plugins>
+       <plugin>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-maven-plugin</artifactId>
+           <executions>
+               <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                    <configuration>
+                        <finalName>pm-data-simulator-cli</finalName>
+                        <classifier>spring-boot</classifier>
+                        <mainClass>zg.toolkit.pm.App</mainClass>
+                    </configuration>
+               </execution>
+           </executions>
+       </plugin>
+	   <plugin>               
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                 
+                    <execution>
+                        <id>omes-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaFiles>OMeS_DataModel.xsd</schemaFiles>
+                            <packageName>com.nokia.oss.pm.omes</packageName>
+                        </configuration>
+                    </execution>
+                </executions>
+              
+              
+            </plugin>
+    </plugins>
+	<resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/xsd</directory>
+                <includes>
+                    <include>OMeS_DataModel.xsd</include>
+                    <include>OMeSData_Types.xsd</include>
+                </includes>
+            </resource>
+			<resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+</build>
+	
+	<properties>
+        <java.version>1.8</java.version>
+    </properties>
+</project>

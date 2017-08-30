@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by NSN (Nokia Solutions & Networks OY) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="2.3" xml:lang="en">
+	<xs:include schemaLocation="OMeSData_Types.xsd"/>
+	<xs:element name="OMeS" type="OMeS">
+		<xs:annotation>
+			<xs:documentation>Root element for OMeS.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OMeS">
+		<xs:annotation>
+			<xs:documentation>OMeS type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PMSetup" type="PMSetup" minOccurs="0" maxOccurs="32767">
+				<xs:annotation>
+					<xs:documentation>This element indicates the start of a new measuring period.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="version" type="OMeSVersion" use="optional" default="2.1">
+			<xs:annotation>
+				<xs:documentation>OMeS instance version. Defaults to 2.1 (where version attribute was not present).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="adapId" type="AdaptationId" use="optional">
+			<xs:annotation>
+				<xs:documentation>Reserved for future use.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="adapRelease" type="AdaptationRelease" use="optional">
+			<xs:annotation>
+				<xs:documentation>Reserved for future use.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PMSetup">
+		<xs:annotation>
+			<xs:documentation>PMSetup type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PMMOResult" type="PMMOResult" minOccurs="0" maxOccurs="32767">
+				<xs:annotation>
+					<xs:documentation>This element indicates the start of a PM measurement event, associated with a specific set of target objects.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="startTime" type="dateTimeUTCDiff" use="required">
+			<xs:annotation>
+				<xs:documentation>This attribute specifies the start time of the measuring period, using ISO 8601 format.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="realStartTime" type="dateTimeUTCDiff" use="optional">
+			<xs:annotation>
+				<xs:documentation>This attribute describes the real starting time of a measurement. Not used if realStartTime is same as startTime.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="realStopTime" type="dateTimeUTCDiff" use="optional">
+			<xs:annotation>
+				<xs:documentation>This attribute describes the real stopping time of a measurement. Not used if realStopTime is same as startTime/realStartTime added by interval. Used only if interval is not defined.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="interval" type="interval" use="optional">
+			<xs:annotation>
+				<xs:documentation>Measurement interval in minutes. If interval is not defined, realStopTime must be defined. If interval is less than one minute, leave this undefined and use the realStartTime/realStopTime.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PMMOResult">
+		<xs:annotation>
+			<xs:documentation>PMMOResult type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MO" type="MO" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>This element starts the definition of an individual object in the topology for which the measurements within the same PMMOResult element have been collected. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>32767 is the limit, but using that number causes issues with SAX, so validate that using a constraint instead.</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="PMTarget">
+					<xs:annotation>
+						<xs:documentation>This element indicates the start of measurement information that contains a defined set of measured indicators. The name of this element can be freely chosen, when using schema specific extensions. The default name used is PMTarget.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:any namespace="com.nokia.com/oss/pm/omes/legacy" processContents="skip">
+					<xs:annotation>
+						<xs:documentation>Allow validating legacy OMeS files that substitute PMTarget but do not provide any schema. As long as they are set to the "com.nokia.com/oss/pm/omes/legacy" namespace, they can be validated.</xs:documentation>
+					</xs:annotation>
+				</xs:any>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MO">
+		<xs:annotation>
+			<xs:documentation>MO type</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="DN" type="DN">
+				<xs:annotation>
+					<xs:documentation>This element represents the RDN or FQDN for the measured object, depending on adaptation metadata (e.g., DN mapping strategy). This is the preferred way of representing MOs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="globalId">
+				<xs:annotation>
+					<xs:documentation>This attribute defines the NetAct internal Global ID for measured object. 
+This attribute is deprecated.
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:choice>
+				<xs:sequence>
+					<xs:annotation>
+						<xs:documentation>MO Section for network_element dimension.</xs:documentation>
+					</xs:annotation>
+					<xs:element name="baseId" type="BaseId">
+						<xs:annotation>
+							<xs:documentation>NWI3 BaseId is only allowed in network_element dimension.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:sequence minOccurs="0">
+						<xs:element name="localMoid" type="LocalMoid" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>NWI3 localmoid attribute in network_element dimension.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MOName" type="MOName" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>MOName is only alllowed in the network_element dimension.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:sequence>
+				<xs:element name="localMoid" type="LocalMoid">
+					<xs:annotation>
+						<xs:documentation>LocalMoid is the only allowed attribute in additional MO sections, when NWI3 attributes are used.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:choice>
+		<xs:attribute name="dimension" type="Dimension" use="optional">
+			<xs:annotation>
+				<xs:documentation>This attribute defines the name of the dimension as defined in the corresponding adaptation metadata.
+Example: MCCMNC</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PMTarget">
+		<xs:annotation>
+			<xs:documentation>PMTarget type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any namespace="##local" processContents="skip" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The individual measured indicator that has been collected on the NE. </xs:documentation>
+				</xs:annotation>
+			</xs:any>
+		</xs:sequence>
+		<xs:attribute name="measurementType" use="required">
+			<xs:annotation>
+				<xs:documentation>This attribute describes the name of the measurement type as defined in the corresponding adaptation metadata.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="measurementType">
+					<xs:pattern value="[\.\-_A-Za-z0-9]*"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="PMTarget" type="PMTarget">
+		<xs:annotation>
+			<xs:documentation>Measurements in the result. Substitutable element, with network element specific measurement types.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

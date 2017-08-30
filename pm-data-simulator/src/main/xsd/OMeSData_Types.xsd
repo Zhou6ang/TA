@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by NSN (Nokia Solutions & Networks OY) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="measurementType">
+		<xs:annotation>
+			<xs:documentation>Data type for measurement Type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DN">
+		<xs:annotation>
+			<xs:documentation>Data type for DN.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="dateTimeUTCDiff">
+		<xs:annotation>
+			<xs:documentation>Data type for the dateTime to be used in OMeS. The xs:dateTime is not used because this type requires some extensions for bacwards compatibility.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="interval">
+		<xs:annotation>
+			<xs:documentation>Data type for measurement interval.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minExclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="indicator">
+		<xs:annotation>
+			<xs:documentation>Data type for measured indicator.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:double"/>
+	</xs:simpleType>
+	<xs:simpleType name="AdaptationId">
+		<xs:annotation>
+			<xs:documentation>Data type for Adaptation ID
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="64"/>
+			<xs:pattern value="[a-zA-Z][_a-zA-Z0-9]*(\.[a-zA-Z][_a-zA-Z0-9]*)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AdaptationRelease">
+		<xs:annotation>
+			<xs:documentation>Data type for Adaptation Release. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:pattern value="[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Dimension">
+		<xs:annotation>
+			<xs:documentation>Data type for Dimension.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+			<xs:pattern value="[a-zA-Z][_A-Za-z0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OMeSVersion">
+		<xs:annotation>
+			<xs:documentation>Enumeration type for OMeS versioning, default value is "2.1".</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2.1"/>
+			<xs:enumeration value="2.3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BaseId">
+		<xs:annotation>
+			<xs:documentation>NWI3 baseId type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Za-z!#$\(\)\*&#x26;\+,\-\.;&#x3C;=>\?\{\|\}~ @\^_\[\]]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LocalMoid">
+		<xs:annotation>
+			<xs:documentation>NWI3 localMoid type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(DN:){0,1}[0-9A-Za-z!#$\(\)\*&#x26;\+,\-\.;&#x3C;=>\?\{\|\}~ @\^_\[\]/]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MOName">
+		<xs:annotation>
+			<xs:documentation>NWI3 MOName type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Za-z!#$\(\)\*&#x26;\+,\-\.;&#x3C;=>\?\{\|\}~ @\^_\[\]/:]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
