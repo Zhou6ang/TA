@@ -45,8 +45,40 @@
                </execution>
            </executions>
        </plugin>
+	   <plugin>               
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>jaxb2-maven-plugin</artifactId>
+			<version>2.3.1</version>
+			<executions>
+				<execution>
+					<id>aom-xjc</id>
+					<goals>
+						<goal>xjc</goal>
+					</goals>
+					<configuration>
+						<sources>
+							<source>src/main/xsd/AomImportSchema.xsd</source>
+						</sources>
+						<packageName>com.nokia.oss.aom</packageName>
+						<clearOutputDir>false</clearOutputDir>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
     </plugins>
-</build>
+	<resources>
+		<resource>
+			<filtering>false</filtering>
+			<directory>src/main/xsd</directory>
+			<includes>
+				<include>AomImportSchema.xsd</include>
+			</includes>
+		</resource>
+		<resource>
+			<directory>src/main/resources</directory>
+		</resource>
+	</resources>
+ </build>
 	
 	<properties>
         <java.version>1.8</java.version>

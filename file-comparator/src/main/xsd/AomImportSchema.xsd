@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML 2016 Designer Edition (Trial) 14.0.1.6408 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:aom="http://www.nokia.com/schema/public/oss/aom" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.nokia.com/schema/public/oss/aom" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="supportedMeasurementIntervals">
+        <xs:annotation>
+            <xs:documentation>Supported intervals definitions for the measurements</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supportedMeasurementInterval" type="xs:int" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Supported Interval</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="defaultMeasurementInterval" type="xs:int" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Default Interval definition</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueInterval">
+            <xs:selector xpath="aom:supportedMeasurementInterval" />
+            <xs:field xpath="." />
+        </xs:unique>
+    </xs:element>
+    <xs:element name="numOfTimePeriodSupported" type="xs:int">
+        <xs:annotation>
+            <xs:documentation>
+                different measurement type support different
+                number of time periods default value - 0
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="sameIntervalForEachTimePeriod" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                default value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="isWeekdaySelectionSupported" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                weekday selection is supported or not default
+                value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="isStartTimeSupported" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                for some measurement type, can not support start
+                time default value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="isEndTimeSupported" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                for some measurement type, could not support end
+                time default value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="aomAppliedResourceTarget" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is same with measured target in PMB. but here
+                is just for AoM setting. In case of only NE
+                level supported, just use the NE level class id.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="isStartDateSupported" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                support startDate selection in ScheduleItem or
+                not default value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="isEndDateSupported" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                support endDate selection in ScheduleItem or
+                not, true/false. default value - false
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="AoMPMRef">
+        <xs:annotation>
+            <xs:documentation>Specifies location along with measurement information to be fetched from the aom adaptation location</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="MeasurementRef" type="aom:MeasurementRef" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Referred measurement indentifer</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="referredAoMAdaptationID" type="xs:string" use="required" />
+        <xs:attribute name="referredAoMAdaptationRelease" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:complexType name="MeasurementRef">
+        <xs:attribute name="aomMeasurementID" type="xs:string" use="required" />
+        <xs:attribute name="measurementIDinSourceAoMAdaptation" type="xs:string" use="optional" />
+        <xs:attribute name="cmMocInfo" type="xs:string" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="parameterType">
+        <xs:sequence>
+            <xs:element name="validation-rule" type="aom:validation-ruleType" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="desc" type="xs:string" use="optional" />
+        <xs:attribute name="type" type="xs:string" use="required" />
+        <xs:attribute name="mandatory" type="xs:boolean" use="required" />
+        <xs:attribute name="defaultValue" type="xs:string" use="optional" />
+        <xs:attribute name="Help" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:complexType name="validation-ruleType">
+        <xs:sequence>
+            <xs:element name="valid-values" type="aom:valid-valuesType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        This is a optional element, used to define set of valid values e.g. 0-10, 128-300 etc. <value> element should be used to declare each range of value.</value>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="target" type="aom:targetType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        This is optional element, used to define values for multiple targets. e.g. if target=2: 0, 2-8, 12-13, 15, 41, 50; if target=3: 9-25, 28-29, 100-105, 107.
+                        To declare the values, 'values' element should be used. e.g. <values>
+                            <value>0</value>
+                            <value>2</value>...
+                        </values>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="greater-than" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This optional element can be used to define 'range' parameters where one parameter should be 'greater than' other. The value should be the 'name' of other parameter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="greater-than-equalto" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This optional element can be used to define parameters where one parameter should be 'greater than or equal to' other. The value should be the 'name' of other parameter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="less-than" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This optional element can be used to define 'range' parameters where one parameter should be 'less than' other. The value should be the 'name' of other parameter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="less-than-equalto" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This optional element can be used to define parameters where one parameter should be 'less than or equal to' other. The value should be the 'name' of other parameter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="param-selection" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        The optional element is to specify whether all the
+                        parameters can be selected or anyone of them is
+                        allowed. value can be 'anyone' or 'all'
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="anyone" />
+                        <xs:enumeration value="all" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="paramGroupList">
+        <xs:sequence>
+            <xs:element name="paramGroup" type="aom:paramGroup" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="paramGroup">
+        <xs:sequence>
+            <xs:element name="param" type="aom:param" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="param">
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="valid-valuesType">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="targetType">
+        <xs:sequence>
+            <xs:element name="values" type="aom:valuesType" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="valuesType">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="HRefType">
+        <xs:attributeGroup ref="aom:hReference" />
+    </xs:complexType>
+    <xs:attributeGroup name="hReference">
+        <xs:attribute name="href" type="xs:anyURI" use="required" />
+    </xs:attributeGroup>
+    <xs:element name="MeasurementType">
+        <xs:annotation>
+            <xs:documentation>Measurement definition </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence minOccurs="0">
+                <xs:element ref="aom:supportedMeasurementIntervals" minOccurs="0" maxOccurs="1" />
+                <xs:element name="parameter" type="aom:parameterType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="paramGroups" type="aom:paramGroupList" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="presentationName" type="xs:string" use="required" />
+            <xs:attribute name="cmMocInfo" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="InterfaceVersion">
+        <xs:annotation>
+            <xs:documentation>This type is used to refer to the "AOM O and M Interface specification" document version.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{1,2}\.\d{1,2}(-\d{1,2})?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SchemaVersions">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1.0" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:group name="Capability">
+        <xs:sequence>
+            <xs:element ref="aom:supportedMeasurementIntervals" minOccurs="0" maxOccurs="1" />
+            <xs:element ref="aom:numOfTimePeriodSupported" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:sameIntervalForEachTimePeriod" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:isWeekdaySelectionSupported" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:isStartTimeSupported" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:isEndTimeSupported" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:aomAppliedResourceTarget" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:isStartDateSupported" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="aom:isEndDateSupported" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:group>
+    <xs:element name="AOM">
+        <xs:annotation>
+            <xs:documentation>The root fragment element</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Adaptation" type="aom:HRefType" minOccurs="1" maxOccurs="1" />
+                <xs:element name="Capability" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Definition for basic capability of the Network Element</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:group ref="aom:Capability" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="MeasurementTypes" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Grouping of the measurements</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="aom:MeasurementType" maxOccurs="unbounded">
+                            </xs:element>
+                            <xs:element name="AoMPMRef" type="aom:AoMPMRef" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                    <xs:unique name="unique-mtid">
+                        <xs:selector xpath="aom:MeasurementType"/>
+                        <xs:field xpath="@id"/>
+                        <xs:field xpath="@presentationName"/>
+                    </xs:unique>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="interfaceVersion" type="aom:InterfaceVersion" />
+            <xs:attribute name="schemaVersion" type="aom:SchemaVersions" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
