@@ -43,15 +43,15 @@ public class App {
 		
 		
 		if(args.length != 7){
-        	System.out.println("###############################################################################################");
-        	System.out.println("#            PM Real Data Simulator Tool                                                      #");
-        	System.out.println("#                                                                                             #");
-        	System.out.println("# Please input 7 parameters as below.                                                         #");
-        	System.out.println("# usage: java -jar app.jar pmb-dir suppl-dir dn omc pwdOfOmc host OMesOutput-dir              #");
-        	System.out.println("#                                                                                             #");
-        	System.out.println("#   e.g. java -jar app.jar /var/pmb/ /var/supp/xx.xml PLMN-XX/XX-17.0 omc omc 0.0.0.0 ./omes/ #");
-        	System.out.println("#                                                                                             #");
-        	System.out.println("###############################################################################################");
+        	System.out.println("####################################################################################################");
+        	System.out.println("#            PM Real Data Simulator Tool                                                           #");
+        	System.out.println("#                                                                                                  #");
+        	System.out.println("# Please input 7 parameters as below.                                                              #");
+        	System.out.println("#                                                                                                  #");
+        	System.out.println("# Usage: java -jar app.jar <pmb-dir> <suppl-dir> <dn> <omc> <pwdOfOmc> <hostOfDB> <OMesOutput-dir> #");
+        	System.out.println("#   e.g. java -jar app.jar /var/pmb/ /var/supp/xx.xml PLMN-XX/XX-17.0 omc omc 0.0.0.0 ./omes/      #");
+        	System.out.println("#                                                                                                  #");
+        	System.out.println("####################################################################################################");
         	System.exit(-1);
         }
 		String pmbDir = args[0];

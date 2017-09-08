@@ -8,11 +8,7 @@
   <name>pm-data-simulator</name>
   <url>http://maven.apache.org</url>
   
-  <parent>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-parent</artifactId>
-	<version>1.4.0.RELEASE</version>
-  </parent>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -51,21 +47,69 @@
  <build>
     <plugins>
        <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <finalName>pm-data-simulator-all-in-one</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>zg.toolkit.pm.App</mainClass>
+                                </manifest>
+                            </archive>
+                            <outputDirectory>${project.build.directory}/exec</outputDirectory>
+                        </configuration>
+                        <id>any-id-1</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                   <!-- this can ignore, if need package as zip file please coment it out. 
+    <execution>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/zip.xml</descriptor>
+                            </descriptors>
+                            <outputDirectory>${project.build.directory}/zip</outputDirectory>
+                        </configuration>
+                        <id>o2ml-converter-zip</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution> -->
+                </executions>
+        </plugin>
+        <!--<plugin>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-maven-plugin</artifactId>
            <executions>
-               <execution>
+             <execution>
                     <goals>
                         <goal>repackage</goal>
                     </goals>
                     <configuration>
                         <finalName>pm-data-simulator-cli</finalName>
-                        <classifier>spring-boot</classifier>
+                        <classifier>classifier-name</classifier>
                         <mainClass>zg.toolkit.pm.App</mainClass>
+                        <additionalProperties>
+                            <encoding.source>UTF-8</encoding.source>
+                            <encoding.reporting>UTF-8</encoding.reporting>
+                            <java.source>${maven.compiler.source}</java.source>
+                            <java.target>${maven.compiler.target}</java.target>
+                        </additionalProperties>
                     </configuration>
                </execution>
            </executions>
-       </plugin>
+       </plugin> -->
 	   <plugin>               
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -86,6 +130,15 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+				  <source>1.8</source>
+				  <target>1.8</target>
+				</configuration>
+			</plugin>
     </plugins>
 	<resources>
             <resource>
