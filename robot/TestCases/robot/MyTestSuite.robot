@@ -79,14 +79,17 @@ test case level teardown
     Log    this is test case level teardown
 there are 2 parameters "${para1}" and "${para2}"
     Set Suite Variable    ${para1}    
+    passing parameter to key word again "${para1}"
     Set Suite Variable    ${para2}    
-    
+    passing parameter to key word again "${para2}"
 do adding them
     ${expect}=    Add    ${para1}    ${para2}
     Log    ${para1}    
     Log    ${para2}
     Log    ${expect}    
     Set Suite Variable    ${expect}    
+passing parameter to key word again "${p}"
+    Log    ${p}
 result is "${result}"
     Should Be Equal As Integers    ${result}    ${expect}    
 test suite setup

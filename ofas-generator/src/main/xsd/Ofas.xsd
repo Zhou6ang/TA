@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OFaS
+VERSION 3.0.5
+DATE: 07-10-2016       	   
+Copyright (C) Nokia Networks 2015
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="notification" type="Notification"/>
+	<xsd:element name="alarmSynchronisation" type="AlarmSynchronization"/>
+	<xsd:element name="ackSynchronisation" type="AckSynchronization"/>
+	<xsd:complexType name="Notification">
+		<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="alarmNew" type="AlarmNew"/>
+			<xsd:element name="alarmCleared" type="AlarmCleared"/>
+			<xsd:element name="alarmChanged" type="AlarmChanged"/>
+			<xsd:element name="ackStateChanged" type="AckStateChanged"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="AlarmSynchronization">
+		<xsd:choice minOccurs="0">
+			<xsd:element name="alarmNew" type="AlarmNew" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="alarmSynchronized" type="AlarmSynchronized" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="statusMessage" type="OperationStatusMessage"/>
+		</xsd:choice>
+		<xsd:attribute name="user" type="User" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="AckSynchronization">
+		<xsd:choice minOccurs="0">
+			<xsd:element name="ackStateChanged" type="AckStateChanged" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="statusMessage" type="OperationStatusMessage"/>
+		</xsd:choice>
+		<xsd:attribute name="user" type="User" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="OperationStatusMessage">
+		<xsd:attribute name="message" type="xsd:string"/>
+		<xsd:attribute name="status" type="OperationStatus"/>
+	</xsd:complexType>
+	<xsd:complexType name="AlarmNew">
+		<xsd:all>
+			<xsd:element name="eventTime" type="xsd:dateTime"/>
+			<xsd:element name="specificProblem" type="SpecificProblem"/>
+			<xsd:element name="alarmText" type="TextField"/>
+			<xsd:element name="perceivedSeverity" type="PerceivedSeverity"/>
+			<xsd:element name="additionalText1" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText2" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText3" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText4" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText5" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText6" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText7" type="TextField" minOccurs="0"/>
+			<xsd:element name="eventType" type="EventType"/>
+			<xsd:element name="externalNotificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="externalCorrelationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="externalMediationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="alarmId" type="AlarmId"/>
+			<xsd:element name="notificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="probableCause" type="ProbableCause" minOccurs="0"/>
+			<xsd:element name="uploadable" type="xsd:boolean" default="true"  minOccurs="0"/>
+			<xsd:element name="additionalFlags" type="AdditionalFlagType" minOccurs="0"/>
+			<xsd:element name="adaptationId" type="AdaptationId" minOccurs="0"/>
+			<xsd:element name="adaptationRelease" type="AdaptationRelease" minOccurs="0"/> 
+			<xsd:element name="alarmCount" type="AlarmCount" minOccurs="0"/> 			
+		</xsd:all>
+		<xsd:attribute name="systemDN" type="SystemDN" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="AlarmCleared">
+		<xsd:all>
+			<xsd:element name="eventTime" type="xsd:dateTime"/>
+			<xsd:element name="specificProblem" type="SpecificProblem"/>
+			<xsd:element name="clearUser" type="User" minOccurs="0"/>
+			<xsd:element name="alarmId" type="AlarmId"/>
+			<xsd:element name="notificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="eventType" type="EventType" minOccurs="0"/>
+			<xsd:element name="probableCause" type="ProbableCause" minOccurs="0"/>
+			<xsd:element name="perceivedSeverity" type="PerceivedSeverity" minOccurs="0"/>
+		</xsd:all>
+		<xsd:attribute name="systemDN" type="SystemDN" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="AlarmChanged">
+		<xsd:all>
+			<xsd:element name="eventTime" type="xsd:dateTime"/>
+			<xsd:element name="specificProblem" type="SpecificProblem"/>
+			<xsd:element name="alarmText" type="TextField"/>
+			<xsd:element name="perceivedSeverity" type="PerceivedSeverity"/>
+			<xsd:element name="additionalText1" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText2" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText3" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText4" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText5" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText6" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText7" type="TextField" minOccurs="0"/>
+			<xsd:element name="eventType" type="EventType"/>
+			<xsd:element name="externalNotificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="externalCorrelationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="externalMediationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="additionalFlags" type="AdditionalFlagType" minOccurs="0"/>
+			<xsd:element name="alarmId" type="AlarmId"/>
+			<xsd:element name="notificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="probableCause" type="ProbableCause" minOccurs="0"/>
+			<xsd:element name="adaptationId" type="AdaptationId" minOccurs="0"/>
+			<xsd:element name="adaptationRelease" type="AdaptationRelease" minOccurs="0"/>
+			<xsd:element name="alarmCount" type="AlarmCount" minOccurs="0"/> 	
+		</xsd:all>
+		<xsd:attribute name="systemDN" type="SystemDN" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="AckStateChanged">
+		<xsd:all>
+			<xsd:element name="eventTime" type="xsd:dateTime"/>
+			<xsd:element name="ackUser" type="User" minOccurs="0"/>
+			<xsd:element name="alarmId" type="AlarmId"/>
+			<xsd:element name="notificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="specificProblem" type="SpecificProblem"/>
+			<xsd:element name="ackStatus" type="AckStatus" minOccurs="0"/>
+			<xsd:element name="eventType" type="EventType" minOccurs="0"/>
+			<xsd:element name="probableCause" type="ProbableCause" minOccurs="0"/>
+			<xsd:element name="perceivedSeverity" type="PerceivedSeverity" minOccurs="0"/>
+		</xsd:all>
+		<xsd:attribute name="systemDN" type="SystemDN" use="required"/>
+	</xsd:complexType>
+	<!-- Deprecated -->
+	<xsd:complexType name="AlarmSynchronized">
+		<xsd:all>
+			<xsd:element name="eventTime" type="xsd:dateTime"/>
+			<xsd:element name="specificProblem" type="SpecificProblem"/>
+			<xsd:element name="alarmText" type="TextField"/>
+			<xsd:element name="perceivedSeverity" type="PerceivedSeverity"/>
+			<xsd:element name="additionalText1" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText2" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText3" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText4" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText5" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText6" type="TextField" minOccurs="0"/>
+			<xsd:element name="additionalText7" type="TextField" minOccurs="0"/>
+			<xsd:element name="eventType" type="EventType"/>
+			<xsd:element name="alarmId" type="AlarmId"/>
+			<xsd:element name="notificationId" type="NotificationId" minOccurs="0"/>
+			<xsd:element name="probableCause" type="ProbableCause" minOccurs="0"/>
+			<xsd:element name="uploadable" type="xsd:boolean" default="true" minOccurs="0"/>
+			<xsd:element name="originalSeverity" type="OriginalSeverity" minOccurs="0"/>
+			<xsd:element name="ackUser" type="User" minOccurs="0"/>
+			<xsd:element name="ackStatus" type="AckStatus"/>
+			<xsd:element name="ackTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="clearUser" type="User" minOccurs="0"/>
+			<xsd:element name="cancelTime" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:all>
+		<xsd:attribute name="systemDN" type="SystemDN" use="required"/>
+	</xsd:complexType>
+	<xsd:simpleType name="ProbableCause">
+		<xsd:restriction base="xsd:nonNegativeInteger">
+			<xsd:maxInclusive value="2147483647"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TextField">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1024"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Correlate">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="true"/>
+			<xsd:enumeration value="false"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EventType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="communication"/>
+<!-- Deprecated -->			<xsd:enumeration value="communications"/> <!-- Deprecated -->
+			<xsd:enumeration value="environmental"/>
+			<xsd:enumeration value="equipment"/>
+			<xsd:enumeration value="processingError"/>
+			<xsd:enumeration value="qualityOfService"/>
+			<xsd:enumeration value="integrityViolation"/>
+			<xsd:enumeration value="operationalViolation"/>
+			<xsd:enumeration value="physicalViolation"/>
+			<xsd:enumeration value="securityViolation"/>
+			<xsd:enumeration value="timeDomainViolation"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PerceivedSeverity">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="critical"/>
+			<xsd:enumeration value="major"/>
+			<xsd:enumeration value="minor"/>
+			<xsd:enumeration value="warning"/>
+			<xsd:enumeration value="cleared"/>
+			<xsd:enumeration value="indeterminate"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OriginalSeverity">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="critical"/>
+			<xsd:enumeration value="major"/>
+			<xsd:enumeration value="minor"/>
+			<xsd:enumeration value="warning"/>
+			<xsd:enumeration value="indeterminate"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SpecificProblem">
+		<xsd:restriction base="xsd:positiveInteger">
+			<xsd:maxInclusive value="2147483647"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NotificationId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AlarmId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SystemDN">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="400"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AdaptationId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="64"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AdaptationRelease">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="User">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="64"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AckStatus">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="acked"/>
+			<xsd:enumeration value="unacked"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OperationStatus">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="alive"/>
+			<xsd:enumeration value="aborted"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="AdditionalFlagType">
+		<xsd:all>
+			<xsd:element name="filterFromUpload" type="xsd:boolean" default="false" minOccurs="0"/>
+			<xsd:element name="clearStoring" type="xsd:boolean" default="false" minOccurs="0"/>
+			<xsd:element name="hideFromUI" type="xsd:boolean" default="false" minOccurs="0"/>
+			<xsd:element name="sameOESUI" type="xsd:boolean" default="false" minOccurs="0"/>
+			<xsd:element name="correlate" type="Correlate" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:simpleType name="AlarmCount">
+		<xsd:restriction base="xsd:nonNegativeInteger">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="10000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

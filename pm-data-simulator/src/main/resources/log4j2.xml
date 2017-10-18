@@ -2,7 +2,7 @@
 <Configuration status="WARN" monitorInterval="30">
   <Properties>
     <Property name="filename">/var/log/app/test.log</Property>
-    <Property name="logfolder">D:/target/logs</Property>
+    <Property name="logfolder">/var/log/pm-data-simulator-logs</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

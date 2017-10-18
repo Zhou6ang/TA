@@ -1,0 +1,5 @@
+PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-cscf02,c3e9015b-3d07-4b58-9ce8-3df75f6886ca, overcloud-compute-1.localdomain
+PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-cscf01,a7b7832e-3f71-4b9c-9d5a-1b72d5d11e12, overcloud-compute-1.localdomain
+PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-lb01,7a13b818-69d6-4372-a639-73a0a62713e8, overcloud-compute-1.localdomain
+PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-lb02,e8e35bf5-49f2-4090-bd8d-d133a58d00fb, overcloud-compute-4.localdomain
+PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/IMSOAM-oam01,a1c8fc5e-da06-454b-8d0b-c5ace4d6f003, overcloud-compute-4.localdomain

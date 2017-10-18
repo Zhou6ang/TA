@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<measSchedule name="NE3S">
+  <scheduleItem scheduleId="57" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>ANT</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="56" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>AS</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="61" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>ASP</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="55" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>AT</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="10" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>BC</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="1" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>BGCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="59" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>CT</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="14" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>CX</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="13" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>DIA</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="11" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>DIAMETERDISP</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="24" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>DNSPH</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="23" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>EATF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="62" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>FEE</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="20" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>HTTPCL</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="21" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>HTTPSV</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="2" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>IBCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="3" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>ICSCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="63" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>IDM</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="27" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>IMSLB</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="4" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>MCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="9" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>NM</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="5" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>OVLCT</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="6" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>PCSCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="64" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>PN</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="8" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>RF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="28" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>RLM</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="65" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>RO</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="26" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>RTTA</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="7" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>SCSCF</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="60" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>SDM</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="22" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>SH</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="58" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>ST</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="15" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>NETWORK</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="16" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>FS</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="17" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>AGGREGAT</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="18" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>CPU</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="66" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>DISK</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="67" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>VCPU</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+  <scheduleItem scheduleId="68" startDate="2011-01-01" stopDate="2037-06-06">
+    <measurements>
+      <measurement>DBSpace</measurement>
+    </measurements>
+    <measPeriods>
+      <period day="0" duration="1440" hour="0" id="1" interval="15" minutes="0"/>
+    </measPeriods>
+  </scheduleItem>
+</measSchedule>

@@ -1,0 +1,45 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="measSchedule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="scheduleItem" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="measurements">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="measurement"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="measPeriods">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="period">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:int" name="day" use="optional"/>
+                            <xs:attribute type="xs:int" name="duration" use="optional"/>
+                            <xs:attribute type="xs:int" name="hour" use="optional"/>
+                            <xs:attribute type="xs:int" name="id" use="optional"/>
+                            <xs:attribute type="xs:int" name="interval" use="optional"/>
+                            <xs:attribute type="xs:int" name="minutes" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="scheduleId" use="optional"/>
+            <xs:attribute type="xs:date" name="startDate" use="optional"/>
+            <xs:attribute type="xs:date" name="stopDate" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
