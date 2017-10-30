@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -50,6 +51,7 @@ public class App {
 	private Random random = new Random();
 	private static List<Object> man = new ArrayList<>();
 	private Runtime rt = Runtime.getRuntime();
+	private String agentId = null;
 	static
     {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -81,12 +83,11 @@ public class App {
     	System.out.println("#                                                                                                         #");
     	System.out.println("# Please input correct parameters as below.                                                               #");
     	System.out.println("#                                                                                                         #");
-    	System.out.println("# Usage: java -jar ofas-generator-cli.jar -g <DN> <input_csv_file> [output_ofas_dir]                      #");
+    	System.out.println("# Usage: java -jar ofas-generator-cli.jar -g <input_csv_file> [output_ofas_dir]                           #");
     	System.out.println("# Note: -g indicates generate OFaS file.                                                                  #");
-    	System.out.println("#       <DN> is distinguish name and mandantory parameter, can be found from Monitor.                     #");
     	System.out.println("#       <input_csv_file> is input path of CSV file and mandantory parameter.                              #");
     	System.out.println("#       [output_ofas_dir] is output directory of OFaS file and optional parameter, cur-dir is by default. #");
-    	System.out.println("# e.g. java -jar ofas-generator-cli.jar -g PLMN-XX/XX-17.0 /var/xx.csv                                    #");
+    	System.out.println("# e.g. java -jar ofas-generator-cli.jar -g /var/xx.csv                                                    #");
     	System.out.println("#                                                                                                         #");
     	System.out.println("# Usage: java -jar ofas-generator-cli.jar -r <src_file> <src_interval> <tgt_interval> [measurement]       #");
     	System.out.println("# Note: -r indicates replaced <src_interval> by <tgt_interval> for file <src_file>.                       #");
@@ -114,16 +115,16 @@ public class App {
 		switch (args[0]) {
 		case "-g":
 			Path output = null,input = null;
-			if(args.length == 4){
-				output = Paths.get(args[3]);
-			}else if(args.length == 3){
+			if(args.length == 3){
+				output = Paths.get(args[2]);
+			}else if(args.length == 2){
 				//do some special things.
 			}else{
 				throw new RuntimeException("Input parameter error.");
 			}
-			input = Paths.get(args[2]);
+			input = Paths.get(args[1]);
 			System.out.println(LocalDateTime.now()+" Starting to generate OFas file.");
-			app.generateOFas(args[1],input, output);
+			app.generateOFas(input, output);
 			System.out.println(LocalDateTime.now()+" Ending to generate OFas file.");
 			break;
 		case "-r":
@@ -253,8 +254,8 @@ public class App {
 		return sb.toString();
 	}
 
-	public void generateOFas(String dn, Path csvPath,Path output) throws Exception{
-		if(!Files.isRegularFile(csvPath) || dn == null){
+	public void generateOFas(Path csvPath,Path output) throws Exception{
+		if(!Files.isRegularFile(csvPath)){
 			throw new RuntimeException("input-csv-file parameter is not a file.");
 		}
 		if(output != null){
@@ -270,7 +271,7 @@ public class App {
 		Map<String, String> map = getMapping(csvPath);
 		Notification notification = createNotification(map);
 		System.out.println(LocalDateTime.now()+" Construct notification element done.");
-		doMarshaller(notification,output.toString()+File.separator+"an_fqdn_"+UrlEscapers.urlPathSegmentEscaper().escape(dn)+"_"+ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))+".xml");
+		doMarshaller(notification,output.toString()+File.separator+"an_fqdn_"+UrlEscapers.urlPathSegmentEscaper().escape(agentId)+"_"+ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))+".xml");
 	}
 	
 	private void doMarshaller(Notification notification, String string) {
@@ -335,8 +336,30 @@ public class App {
 	}
 
 	public Map<String, String> getMapping(Path csvPath) throws IOException {
-		return Files.readAllLines(csvPath).parallelStream()
-				.collect(Collectors.toMap(e -> e.split(",")[0], e -> e.split(",")[1]));
+		Map<String, String> map = new HashMap<>();
+		Files.readAllLines(csvPath).forEach(e -> {
+			String tmpArr[] = e.split(",");
+			String fullDn = tmpArr[0];
+
+			if (!fullDn.startsWith("PLMN"))
+				throw new RuntimeException("The DN of csv file is incorrect, it should be starting with PLMN-*.");
+
+			String s[] = fullDn.split("/", 3);
+
+			if (s.length != 3)
+				throw new RuntimeException(
+						"The DN of csv file is incorrect, it should be starting with PLMN-*/xxx-*/xxx-*.");
+
+			String tmpAgentId = s[0] + "/" + s[1];
+			if(agentId != null && !agentId.equals(tmpAgentId)){
+				throw new RuntimeException(
+						"The DN of csv file is incorrect, all DN should have same prefix, e.g. PLMN-*/xxx-*.");
+			}
+			agentId = tmpAgentId;
+			map.put(s[2], tmpArr[1]);
+		});
+
+		return map;
 	}
 	
 	

@@ -184,6 +184,7 @@ Copyright (C) Nokia Networks 2015
 			<xsd:enumeration value="warning"/>
 			<xsd:enumeration value="cleared"/>
 			<xsd:enumeration value="indeterminate"/>
+			<xsd:enumeration value="info"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="OriginalSeverity">
