@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -50,8 +50,8 @@ public class App {
 	private static javax.xml.validation.Schema mj_schema;
 	private Random random = new Random();
 	private static List<Object> man = new ArrayList<>();
+	private static List<Object> mo = new ArrayList<>();
 	private Runtime rt = Runtime.getRuntime();
-	private String agentId = null;
 	static
     {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -66,16 +66,23 @@ public class App {
         }
         
        
-        Resource res = new ClassPathResource("man.properties");
-        Properties prop = new Properties();
+      
 		try {
-			prop.load(res.getInputStream());
-			man.addAll(prop.values());
+			man.addAll(loadProperty("man.properties").values());
+			String param[] = loadProperty("MO.properties").get("MO").toString().split(",");
+			mo.addAll(Arrays.asList(param));
 		} catch (IOException e) {
 			 throw new RuntimeException(e);
 		}
 		
     }
+	
+	public static Properties loadProperty(String res_file) throws IOException{
+		Resource res = new ClassPathResource(res_file);
+        Properties prop = new Properties();
+        prop.load(res.getInputStream());
+        return prop;
+	}
 	
 	public static void showPrompt(){
 		System.out.println("###########################################################################################################");
@@ -83,9 +90,10 @@ public class App {
     	System.out.println("#                                                                                                         #");
     	System.out.println("# Please input correct parameters as below.                                                               #");
     	System.out.println("#                                                                                                         #");
-    	System.out.println("# Usage: java -jar ofas-generator-cli.jar -g <input_csv_file> [output_ofas_dir]                           #");
+    	System.out.println("# Usage: java -jar ofas-generator-cli.jar -g <input_csv_file> [NE_type] [output_ofas_dir]                 #");
     	System.out.println("# Note: -g indicates generate OFaS file.                                                                  #");
     	System.out.println("#       <input_csv_file> is input path of CSV file and mandantory parameter.                              #");
+    	System.out.println("#       [NE_type] is type of NE, default value includes CSCF, IMSOAM.                                     #");
     	System.out.println("#       [output_ofas_dir] is output directory of OFaS file and optional parameter, cur-dir is by default. #");
     	System.out.println("# e.g. java -jar ofas-generator-cli.jar -g /var/xx.csv                                                    #");
     	System.out.println("#                                                                                                         #");
@@ -104,7 +112,7 @@ public class App {
 	
 	public static void main(String[] args) throws Exception {
 		
-//		args=new String[]{"-g","PLMN-XX/XX-17.0","D:\\github\\TA\\ofas-generator\\src\\test\\resources\\mapping.csv"};
+//		args=new String[]{"-g","D:\\github\\TA\\ofas-generator\\src\\test\\resources\\dn_vm_mapping.csv"};
 //		args=new String[]{"-r","D:\\github\\TA\\ofas-generator\\src\\test\\resources\\1.xml","15","20","CPU"};
 //		args=new String[]{"-r","D:\\github\\TA\\ofas-generator\\src\\test\\resources\\1.xml","15","20"};
 		
@@ -115,10 +123,18 @@ public class App {
 		switch (args[0]) {
 		case "-g":
 			Path output = null,input = null;
-			if(args.length == 3){
-				output = Paths.get(args[2]);
+			if(args.length == 4){
+				output = Paths.get(args[3]);
+				if(!mo.contains(args[2].toUpperCase())){
+					mo.add(args[2].toUpperCase());
+				}
 			}else if(args.length == 2){
 				//do some special things.
+			}else if(args.length == 3){
+				//do some special things.
+				if(!mo.contains(args[2].toUpperCase())){
+					mo.add(args[2].toUpperCase());
+				}
 			}else{
 				throw new RuntimeException("Input parameter error.");
 			}
@@ -267,11 +283,16 @@ public class App {
 			output = Paths.get(new File(".").toURI());
 		}
 		
+		//CSV: PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-lb02/COMMON-1,e8e35bf5-49f2-4090-bd8d-d133a58d00fb
+		//Map<String, Map<String, String>> => key: DN(PLMN-1/IMSNFM-1/DU-CSCFDN1_CSCFDU1_DUSpec/CSCF-lb02), map={key: CSCF-lb02/COMMON-1,value:e8e35bf5-49f2-4090-bd8d-d133a58d00fb}
+		Map<String, Map<String, String>> map = getMapping(csvPath);
 		
-		Map<String, String> map = getMapping(csvPath);
-		Notification notification = createNotification(map);
-		System.out.println(LocalDateTime.now()+" Construct notification element done.");
-		doMarshaller(notification,output.toString()+File.separator+"an_fqdn_"+UrlEscapers.urlPathSegmentEscaper().escape(agentId)+"_"+ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))+".xml");
+		for (String dn : map.keySet()) {
+			Notification notification = createNotification(map.get(dn));
+			System.out.println(LocalDateTime.now()+" Construct notification element done with DN:"+dn+".");
+			doMarshaller(notification,output.toString()+File.separator+"an_fqdn_"+UrlEscapers.urlPathSegmentEscaper().escape(dn)+"_"+ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))+".xml");
+		}
+		
 	}
 	
 	private void doMarshaller(Notification notification, String string) {
@@ -335,8 +356,8 @@ public class App {
 		return alarmNew;
 	}
 
-	public Map<String, String> getMapping(Path csvPath) throws IOException {
-		Map<String, String> map = new HashMap<>();
+	public Map<String, Map<String, String>> getMapping(Path csvPath) throws IOException {
+		Map<String, Map<String, String>> map = new HashMap<>();
 		Files.readAllLines(csvPath).forEach(e -> {
 			String tmpArr[] = e.split(",");
 			String fullDn = tmpArr[0];
@@ -344,19 +365,41 @@ public class App {
 			if (!fullDn.startsWith("PLMN"))
 				throw new RuntimeException("The DN of csv file is incorrect, it should be starting with PLMN-*.");
 
-			String s[] = fullDn.split("/", 3);
-
-			if (s.length != 3)
-				throw new RuntimeException(
-						"The DN of csv file is incorrect, it should be starting with PLMN-*/xxx-*/xxx-*.");
-
-			String tmpAgentId = s[0] + "/" + s[1];
-			if(agentId != null && !agentId.equals(tmpAgentId)){
-				throw new RuntimeException(
-						"The DN of csv file is incorrect, all DN should have same prefix, e.g. PLMN-*/xxx-*.");
-			}
-			agentId = tmpAgentId;
-			map.put(s[2], tmpArr[1]);
+			mo.forEach(m->{
+				String s[] = fullDn.split("/"+m+"-");
+				if(s.length == 2){
+					int start = fullDn.indexOf("/"+m+"-");
+					int found = fullDn.indexOf("/", start+1);
+					String dn;
+					
+					if(found == -1){
+						dn = fullDn;
+					}else{
+						dn = fullDn.substring(0, found);
+					}
+					if(map.get(dn) != null){
+						map.get(dn).put(fullDn.substring(start+1), tmpArr[1]);
+					}else{
+						Map<String, String> detailMap = new HashMap<>();
+						detailMap.put(fullDn.substring(start+1), tmpArr[1]);
+						map.put(dn, detailMap);
+					}
+					
+				}
+			});
+//
+//			if (s.length < 2 )
+//				throw new RuntimeException(
+//						"The DN of csv file is incorrect, it should be starting with PLMN-*/xxx-*/xxx-*.");
+//
+//			String tmpAgentId = s[0] + "/" + s[1];
+//			if(agentId != null && !agentId.equals(tmpAgentId)){
+//				throw new RuntimeException(
+//						"The DN of csv file is incorrect, all DN should have same prefix, e.g. PLMN-*/xxx-*.");
+//			}
+//			agentId = tmpAgentId;
+//			String key = (s.length == 3 && s[2] != null && !s[2].isEmpty()) ? s[1] + "/" + s[2] : s[1];
+//			map.put(key, tmpArr[1]);
 		});
 
 		return map;
@@ -373,6 +416,8 @@ public class App {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
 }
 
 
